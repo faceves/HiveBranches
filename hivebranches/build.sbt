@@ -10,8 +10,10 @@ lazy val root = (project in file("."))
     name := "HiveBranches",
     libraryDependencies += scalaTest % Test,
 
-    // https://mvnrepository.com/artifact/org.apache.hive/hive-jdbc
-    libraryDependencies += "org.apache.hive" % "hive-jdbc" % "3.1.2"
+  //https://mvnrepository.com/artifact/org.apache.hive/hive-jdbc
+  libraryDependencies += "org.apache.hive" % "hive-jdbc" % "2.3.8",
+  // https://mvnrepository.com/artifact/org.apache.hive/hive-metastore
+  libraryDependencies += "org.apache.hive" % "hive-metastore" % "2.3.8"
     
   )
 
