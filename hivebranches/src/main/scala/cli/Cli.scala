@@ -3,6 +3,7 @@ package cli;
 import scala.io.StdIn
 import scala.util.matching.Regex
 import scala.util.{Try,Success,Failure}
+import scala.collection.mutable.ArrayBuffer
 import utils.ConnectionUtil
 import dao.HiveDAO
 
@@ -116,12 +117,12 @@ Remove the row 5 from the output of Scenario 1
             userInput match{
                 case "1" =>{
                     println("Processing query!\nPlease wait ...")
-                    CLIController.totConsumersFromBranch("Branch1")
+                    CLIController.displayTotalConsumers("Branch1")
                     userDone = true;
                 }
                 case "2" =>{
                     println("Processing query!\nPlease wait ...")
-                    CLIController.totConsumersFromBranch("Branch2")
+                    CLIController.displayTotalConsumers("Branch2")
                     userDone = true;
                 }
                 case "exit" => userDone = true
@@ -135,13 +136,54 @@ Remove the row 5 from the output of Scenario 1
         println("Please choose the following problem given the number:")
         println("1) What is the most consumed beverage on Branch1?")
         println("2) What is the least consumed beverage on Branch2?")
+        var userDone = false
+        var userInput = ""
+        var symbol = ""
+        do{
+            userInput = StdIn.readLine().trim()
+            if(userInput.equals("1") || userInput.equals("2")){
+                println("Processing query!\nPlease wait ...")
+                CLIController.displayLeastOrMostBeverage("Branch"+ userInput, userInput)
+                userDone = true;
+            }
+            else if(userInput == "exit")
+                userDone = true;
+            else
+                println("Incorrect command. Please enter 1, 2, or exit.")
+        }while(!userDone)
+
+        
     }
 
     private def scn3Menu() = {
         println("Please choose the following problem given the number:")
         println("1) What are the beverages available on Branch10, Branch8, and Branch1?")
         println("2) What are the comman beverages available in Branch4, Branch7?")
-
+        var userDone = false
+        var userInput = ""
+        var symbol = ""
+        var branchList = ArrayBuffer[String]()
+        var queryFlag = ""
+        do{
+            userInput = StdIn.readLine().trim()
+            if(userInput.equals("1") || userInput.equals("2")){
+                println("Processing query!\nPlease wait ...")
+                if(userInput == "1"){
+                    branchList ++= ArrayBuffer("Branch1", "Branch8", "Branch10")
+                    queryFlag = "available"
+                }
+                else{
+                    branchList ++= ArrayBuffer("Branch4","Branch7")
+                    queryFlag = "common"
+                }
+                CLIController.displayBeverageList(branchList,queryFlag)
+                userDone = true;
+            }
+            else if(userInput == "exit")
+                userDone = true;
+            else
+                println("Incorrect command. Please enter 1, 2, or exit.")
+        }while(!userDone)
         
     }
 

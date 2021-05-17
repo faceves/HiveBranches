@@ -35,8 +35,8 @@ object ConnectionUtil {
             conn = 
                 DriverManager.getConnection(
                 dbConnectionPort.concat(dbName), 
-                getDBLoginInfo("username"),
-                getDBLoginInfo("password") 
+                "",
+                ""
                 )
         }
         // return conn, potentially after initialization
